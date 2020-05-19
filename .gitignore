@@ -1,3 +1,6 @@
 # executable files
 main
 cherry
+
+# editor
+.idea
