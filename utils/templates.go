@@ -2,6 +2,7 @@ package utils
 
 import (
 	"html/template"
+	"log"
 	"net/http"
 )
 
@@ -14,6 +15,6 @@ func LoadTemplates(pattern string) {
 func ExecuteTemplate(w http.ResponseWriter, tmpl string, data interface{}) {
 	err := templates.ExecuteTemplate(w, tmpl, data)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }

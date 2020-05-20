@@ -7,19 +7,27 @@ import (
 	"github.com/gorilla/handlers"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
 	utils.LoadTemplates("templates/*.html")
 	r := routes.NewRouter()
-
-	port := 8080
 	http.Handle("/", r)
 
-	fmt.Println(fmt.Sprintf("Listening on localhost:%d", port))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 
 	origins := handlers.AllowedOrigins([]string{"*"})
 	headers := handlers.AllowedHeaders([]string{"X-Requested-With"})
 	methods := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), handlers.CORS(origins, headers, methods)(r)))
+
+	err := http.ListenAndServe(fmt.Sprintf(":%s", port), handlers.CORS(origins, headers, methods)(r))
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		fmt.Println(fmt.Sprintf("Listening on localhost:%s", port))
+	}
 }
