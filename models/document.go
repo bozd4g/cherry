@@ -5,7 +5,8 @@ type IndexDocument struct {
 }
 
 type PostDocument struct {
-	Title string `json:"title"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
 }
 
 type AboutDocument struct {

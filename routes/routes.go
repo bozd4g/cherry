@@ -31,7 +31,8 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 func postHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	utils.ExecuteTemplate(w, "post.html", models.PostDocument{
-		Title: fmt.Sprintf(constants.DocumentTitle, vars["title"]),
+		Title:       fmt.Sprintf(constants.DocumentTitle, vars["title"]),
+		Description: "Lorem ipsum dolor",
 	})
 }
 

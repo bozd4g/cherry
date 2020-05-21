@@ -11,9 +11,8 @@ import (
 )
 
 func main() {
-	utils.LoadTemplates("templates/*.html")
+	utils.LoadTemplates()
 	r := routes.NewRouter()
-	http.Handle("/", r)
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -25,6 +24,7 @@ func main() {
 	methods := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
 
 	err := http.ListenAndServe(fmt.Sprintf(":%s", port), handlers.CORS(origins, headers, methods)(r))
+
 	if err != nil {
 		log.Fatal(err)
 	} else {
