@@ -1,7 +1,7 @@
 # executable files
 main
 cherry
-
+/dist
 
 # editor
 .idea
