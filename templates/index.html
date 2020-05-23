@@ -1,9 +1,24 @@
-{{define "links"}}{{end}}
-
-{{define "content"}}
-    <div>
-        Hello from Index.html
-    </div>
+{{define "links"}}
+<link rel="stylesheet" type="text/css" href="/static/style/index.css">
 {{end}}
 
-{{define "scripts"}}{{end}}
+{{define "content"}}
+<div>
+    <div class="introduction">
+        <div class="introduction-image"></div>
+        <div class="introduction-content">
+            <h2>Hello 👋</h2>
+            <h2>This is <b>Furkan Bozdağ</b>. I am a Software Engineer at
+                <a class="trendyol" href="https://trendyol.com" target="_blank">Trendyol Group</a>
+                who loves solving the problems.
+            </h2>
+
+            <h4>I want to tell you something; eat the frog 🐸</h4>
+        </div>
+    </div>
+</div>
+{{end}}
+
+{{define "scripts"}}
+<script src="/static/js/index.js"></script>
+{{end}}

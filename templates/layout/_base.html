@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -6,15 +7,33 @@
 
     <link rel="stylesheet" type="text/css" href="/static/style/app.css">
     <link rel="stylesheet" type="text/css" href="/static/style/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/style/reset.css">
     {{template "links" .}}
 
     <script src="/static/js/jquery-3.5.1.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
 </head>
 
-<header></header>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="#">Features</a>
+                <a class="nav-item nav-link" href="#">Pricing</a>
+                <a class="nav-item nav-link disabled" href="#">Disabled</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
 <body>
-{{template "content" .}}
+    {{template "content" .}}
 </body>
 <footer></footer>
 
@@ -22,6 +41,8 @@
 {{template "scripts" .}}
 <script type="text/javascript">
     let resourcePath = '/static/js/app.js';
-    Array.prototype.slice.call(document.getElementsByName('js')).forEach(e => e.src = resourcePath + '?v=' + Date.now());
+    Array.prototype.slice.call(document.getElementsByName('js')).forEach(e => e.src = resourcePath + '?v=' + Date
+        .now());
 </script>
+
 </html>

@@ -1,3 +1,47 @@
-div {
-    font-size: 20px;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+
+:root {
+    --color-font: #fff;
+    --color-body: #222327;
+    --color-search-icon: #717171;
+    --color-underline-link: #414242;
+    --color-table-border: #414242;
+    --color-figcaption: #c3c6c7;
+    --color-hover-dot: #717171;
+    --color-bg-textarea: #28292e;
+    --color-bg-code: #32343a;
+    --color-bg-tag: #414242;
+    --color-bg-elements: #28292e;
+    --color-elements-one: #414242;
+    --color-elements-two: #717171;
+    --color-elements-three: #fff;
+    --color-trendyol: #f28232;
+    --gradient-gray-start: #2b2d32;
+    --gradient-gray-end: #32343a;
+
+    --font-family-primary: 'Noto Sans', sans-serif;
+    --font-weight-primary-regular: 400;
+    --font-weight-primary-bold: 700;
+
+    --gradient-violet-start: #b53cff;
+    --gradient-violet-end: #f952ff;
+    --gradient-green-start: #23bd38;
+    --gradient-green-end: #41eba9;
+    --gradient-red-start: #f857a6;
+    --gradient-red-end: #ff5858;
+    --gradient-orange-start: #e77842;
+    --gradient-orange-end: #f7c068;
+    --gradient-yellow-start: #ffb040;
+    --gradient-yellow-end: #ffd62e;
+    --gradient-blue-start: #327ae7;
+    --gradient-blue-end: #6bd0ff;
+}
+
+body {
+    background-color: var(--color-body) !important;
+}
+
+.navbar {
+    font-family: var(--font-family-primary);
+    padding: 3rem 5rem !important;
 }

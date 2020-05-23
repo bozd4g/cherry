@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+
+
+.introduction {
+    padding: 0 10rem;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.introduction .introduction-image {
+    height: 70vh;
+    min-width: 400px;
+    max-width: 40%;
+    z-index: -3;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    background: no-repeat center center;
+    background-image: url(https://pbs.twimg.com/profile_images/1137816218835005440/8fiGUF5M_400x400.jpg);
+    background-size: cover;
+}
+
+.introduction .introduction-content {
+    color: var(--color-font);
+    font-family: var(--font-family-primary) !important;
+    margin-left: 5rem;
+}
+
+.introduction .introduction-content h2 {
+    line-height: 3rem;
+    font-size: 2.5rem;
+}
+
+.introduction .introduction-content h2 .trendyol {
+    color: var(--color-trendyol);
+    text-decoration: underline;
+}
+
+.introduction .introduction-content h2:last-of-type {
+    margin-top: 1.5rem !important;
+}
+
+.introduction .introduction-content h4 {
+    margin-top: 1rem;
+}
+
+@media (max-width: 1200px) {
+    .introduction .introduction-image {
+        display: none;
+    }
+
+    .introduction .introduction-content {
+        margin-left: unset;
+    }
+}
