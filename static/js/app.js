@@ -1,3 +1,2 @@
-document.onload(function () {
-    alert("Helloo");
+$(document).ready(() => {
 })

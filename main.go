@@ -14,14 +14,14 @@ func main() {
 	utils.LoadTemplates()
 	r := routes.NewRouter()
 
+	origins := handlers.AllowedOrigins([]string{"*"})
+	headers := handlers.AllowedHeaders([]string{"X-Requested-With"})
+	methods := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
-
-	origins := handlers.AllowedOrigins([]string{"*"})
-	headers := handlers.AllowedHeaders([]string{"X-Requested-With"})
-	methods := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
 
 	err := http.ListenAndServe(fmt.Sprintf(":%s", port), handlers.CORS(origins, headers, methods)(r))
 
