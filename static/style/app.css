@@ -43,5 +43,5 @@ body {
 
 .navbar {
     font-family: var(--font-family-primary);
-    padding: 3rem 5rem !important;
+    padding: 2rem 10rem !important
 }
