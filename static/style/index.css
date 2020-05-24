@@ -10,18 +10,18 @@
 
 .introduction .introduction-image {
     height: 70vh;
-    min-width: 400px;
-    max-width: 40%;
+    min-width: 500px;
+    max-width: 600px;
     z-index: -3;
     overflow: hidden;
     width: 100%;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20ox;
     background: no-repeat center center;
-    background-image: url(https://pbs.twimg.com/profile_images/1137816218835005440/8fiGUF5M_400x400.jpg);
+    background-image: url(/static/img/photo.12435343-76ad-4470-aa48-53ad63053234.jpg);
     background-size: cover;
 }
 
@@ -29,6 +29,7 @@
     color: var(--color-font);
     font-family: var(--font-family-primary) !important;
     margin-left: 5rem;
+    margin-top: -5rem;
 }
 
 .introduction .introduction-content h2 {

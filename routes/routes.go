@@ -33,29 +33,9 @@ func NewRouter() *mux.Router {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	apiBaseUrl := os.Getenv("API_BASE_URL")
-	apiGetMethod := os.Getenv("API_GET_METHOD")
-
-	rss := models.Rss{}
-	if apiBaseUrl != "" && apiGetMethod != "" {
-		if rssCache, isRssCacheExist := memoryCache.Get("rssData"); !isRssCacheExist {
-			httpClient := client.HttpClient{BaseUrl: apiBaseUrl}
-			response := httpClient.Get(apiGetMethod)
-
-			if response.IsSuccess {
-				_ = mapstructure.Decode(response.Data, &rss)
-			}
-
-			memoryCache.Set("rssData", rss, cache.DefaultExpiration)
-		} else {
-			_ = mapstructure.Decode(rssCache, &rss)
-			log.Println("Data came from cache")
-		}
-	}
-
 	utils.ExecuteTemplate(w, "index.html", models.IndexDocument{
 		Title: fmt.Sprintf(constants.DocumentTitle, "Home"),
-		Rss:   rss,
+		Rss:   getRss(),
 	})
 }
 
@@ -75,4 +55,35 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 
 func notFoundHandler(w http.ResponseWriter, r *http.Request) {
 	utils.StatusNotFound(w)
+}
+
+func getRss() models.Rss {
+	apiBaseUrl := os.Getenv("API_BASE_URL")
+	apiGetMethod := os.Getenv("API_GET_METHOD")
+
+	rss := models.Rss{}
+	if apiBaseUrl != "" && apiGetMethod != "" {
+		var err error
+		if rssCache, isRssCacheExist := memoryCache.Get("rssData"); !isRssCacheExist {
+			httpClient := client.HttpClient{BaseUrl: apiBaseUrl}
+			response := httpClient.Get(apiGetMethod)
+
+			if response.IsSuccess {
+				err = mapstructure.Decode(response.Data, &rss)
+			} else {
+				log.Println("Error: " + response.Message)
+			}
+
+			memoryCache.Set("rssData", rss, cache.DefaultExpiration)
+		} else {
+			err = mapstructure.Decode(rssCache, &rss)
+			log.Println("Data came from cache")
+		}
+
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	return rss
 }
