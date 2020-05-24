@@ -11,10 +11,8 @@ RUN apk add --no-cache ca-certificates
 
 COPY --from=0 /server /server
 
-COPY ./templates/* /templates/
-COPY ./templates/layout/* /templates/layout/
-COPY ./static/js/* /static/js/
-COPY ./static/style/* /static/style/
+ADD ./templates/ /templates/
+ADD ./static/ /static/
 
 CMD ["/server"]
 
