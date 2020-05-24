@@ -20,5 +20,10 @@
 {{end}}
 
 {{define "scripts"}}
-<script src="/static/js/index.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log({{.Rss}})
+        })
+    </script>
+<script name="js" src="/static/js/index.js"></script>
 {{end}}

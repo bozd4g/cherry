@@ -2,6 +2,7 @@ package models
 
 type IndexDocument struct {
 	Title string `json:"title"`
+	Rss   Rss    `json:"rss"`
 }
 
 type PostDocument struct {

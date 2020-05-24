@@ -5,9 +5,17 @@ import (
 	"github.com/bozd4g/cherry/constants"
 	"github.com/bozd4g/cherry/models"
 	"github.com/bozd4g/cherry/utils"
+	"github.com/bozd4g/go-http-client/client"
 	"github.com/gorilla/mux"
+	"github.com/mitchellh/mapstructure"
+	"github.com/patrickmn/go-cache"
+	"log"
 	"net/http"
+	"os"
+	"time"
 )
+
+var memoryCache *cache.Cache
 
 func NewRouter() *mux.Router {
 	r := mux.NewRouter()
@@ -19,12 +27,35 @@ func NewRouter() *mux.Router {
 
 	fs := http.FileServer(http.Dir("./static/"))
 	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
+
+	memoryCache = cache.New(8*time.Hour, 10*time.Hour)
 	return r
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
+	apiBaseUrl := os.Getenv("API_BASE_URL")
+	apiGetMethod := os.Getenv("API_GET_METHOD")
+
+	rss := models.Rss{}
+	if apiBaseUrl != "" && apiGetMethod != "" {
+		if rssCache, isRssCacheExist := memoryCache.Get("rssData"); !isRssCacheExist {
+			httpClient := client.HttpClient{BaseUrl: apiBaseUrl}
+			response := httpClient.Get(apiGetMethod)
+
+			if response.IsSuccess {
+				_ = mapstructure.Decode(response.Data, &rss)
+			}
+
+			memoryCache.Set("rssData", rss, cache.DefaultExpiration)
+		} else {
+			_ = mapstructure.Decode(rssCache, &rss)
+			log.Println("Data came from cache")
+		}
+	}
+
 	utils.ExecuteTemplate(w, "index.html", models.IndexDocument{
 		Title: fmt.Sprintf(constants.DocumentTitle, "Home"),
+		Rss:   rss,
 	})
 }
 
