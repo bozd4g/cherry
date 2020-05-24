@@ -7,8 +7,8 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.RUN_PROJECT }}
-  RUN_REGION: us-central1
-  SERVICE_NAME: cherry
+  RUN_REGION: europe-west1
+  SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
 
 jobs:
   setup-build-deploy:
