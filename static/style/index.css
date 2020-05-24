@@ -10,11 +10,9 @@
 
 .introduction .introduction-image {
     height: 70vh;
-    min-width: 500px;
-    max-width: 600px;
+    width: 60rem;
     z-index: -3;
     overflow: hidden;
-    width: 100%;
     border-radius: 20px;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
