@@ -9,6 +9,8 @@ env:
   PROJECT_ID: ${{ secrets.RUN_PROJECT }}
   RUN_REGION: europe-west1
   SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
+  API_BASE_URL: ${{ secrets.API_BASE_URL }}
+  API_GET_METHOD: ${{ secrets.API_GET_METHOD }}
 
 jobs:
   setup-build-deploy:
@@ -43,4 +45,6 @@ jobs:
             --region "$RUN_REGION" \
             --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" \
             --platform "managed" \
-            --allow-unauthenticated
+            --allow-unauthenticated \
+            --set-env-vars "API_BASE_URL=$API_BASE_URL" \
+            --set-env-vars "API_GET_METHOD=$API_GET_METHOD"
