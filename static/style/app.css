@@ -39,10 +39,10 @@
 
 body {
     background-color: var(--color-body) !important;
+    font-family: var(--font-family-primary) !important;
 }
 
 .navbar {
-    font-family: var(--font-family-primary);
     padding: 2rem 0 !important
 }
 

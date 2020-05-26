@@ -7,10 +7,10 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.RUN_PROJECT }}
-  RUN_REGION: europe-west1
   SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
   API_BASE_URL: ${{ secrets.API_BASE_URL }}
   API_GET_METHOD: ${{ secrets.API_GET_METHOD }}
+  RUN_REGION: europe-west1
 
 jobs:
   setup-build-deploy:

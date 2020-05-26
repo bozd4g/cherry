@@ -19,7 +19,7 @@ type Item struct {
 	Title       string   `json:"title"`
 	PubDate     string   `json:"pubDate"`
 	Link        string   `json:"link"`
-	GUID        string   `json:"guid"`
+	Guid        string   `json:"guid"`
 	Author      string   `json:"author"`
 	Thumbnail   string   `json:"thumbnail"`
 	Description string   `json:"description"`

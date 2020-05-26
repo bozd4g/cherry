@@ -12,6 +12,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
+	"strings"
 	"time"
 )
 
@@ -20,9 +22,9 @@ var memoryCache *cache.Cache
 func NewRouter() *mux.Router {
 	r := mux.NewRouter()
 	r.HandleFunc("/", indexHandler)
-	r.HandleFunc("/p/{title}/{id}", postHandler)
+	r.HandleFunc("/p/{id}/{title}", postHandler)
 	r.HandleFunc("/about", aboutHandler)
-	r.HandleFunc("/contact", aboutHandler)
+	r.HandleFunc("/contact", contactHandler)
 
 	r.NotFoundHandler = http.HandlerFunc(notFoundHandler)
 
@@ -42,8 +44,16 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 func postHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
+	rss := getRss()
+	var selectedRss models.ItemDto
+	for _, v := range rss.Items {
+		if v.Id == fmt.Sprintf("p/%s", vars["id"]) {
+			selectedRss = v
+		}
+	}
+
 	utils.ExecuteTemplate(w, "post.html", models.PostDocument{
-		Title:       fmt.Sprintf(constants.DocumentTitle, vars["title"]),
+		Title:       fmt.Sprintf(constants.DocumentTitle, selectedRss.Title),
 		Description: "Lorem ipsum dolor",
 	})
 }
@@ -55,7 +65,7 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func contactHandler(w http.ResponseWriter, r *http.Request) {
-	utils.ExecuteTemplate(w, "contact.html", models.AboutDocument{
+	utils.ExecuteTemplate(w, "contact.html", models.ContactDocument{
 		Title: fmt.Sprintf(constants.DocumentTitle, "Contact"),
 	})
 }
@@ -64,7 +74,7 @@ func notFoundHandler(w http.ResponseWriter, r *http.Request) {
 	utils.StatusNotFound(w)
 }
 
-func getRss() models.Rss {
+func getRss() models.RssDto {
 	apiBaseUrl := os.Getenv("API_BASE_URL")
 	apiGetMethod := os.Getenv("API_GET_METHOD")
 
@@ -92,5 +102,38 @@ func getRss() models.Rss {
 		}
 	}
 
-	return rss
+	rssDto := models.RssDto{}
+	err := mapstructure.Decode(rss, &rssDto)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var colNumber = 4
+	var rgx = regexp.MustCompile(`(http[s]?:\/\/)?([^\/\s]+\/)(.*)`)
+
+	for i := 0; i < len(rssDto.Items); i++ {
+		itemDto := &rssDto.Items[i]
+		if len(itemDto.Categories) == 0 {
+			rssDto.Items = append(rssDto.Items[:i], rssDto.Items[i+1:]...)
+			i--
+			continue
+		}
+
+		guidMatches := rgx.FindAllStringSubmatch(itemDto.Guid, -1)
+		linkMatches := rgx.FindAllStringSubmatch(itemDto.Link, -1)
+
+		itemDto.Id = guidMatches[0][3]
+		itemDto.Link = fmt.Sprintf("%s/%s", guidMatches[0][3], strings.Replace(linkMatches[0][3], "/", "-", 10))
+		itemDto.ClassName = fmt.Sprintf("col-md-%d", colNumber)
+
+		if i == 0 {
+			colNumber = 8
+		} else if i == 4 {
+			colNumber = 8
+		} else {
+			colNumber = 4
+		}
+	}
+
+	return rssDto
 }
