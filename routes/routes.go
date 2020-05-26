@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/mitchellh/mapstructure"
 	"github.com/patrickmn/go-cache"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -53,8 +54,8 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	utils.ExecuteTemplate(w, "post.html", models.PostDocument{
-		Title:       fmt.Sprintf(constants.DocumentTitle, selectedRss.Title),
-		Description: "Lorem ipsum dolor",
+		Title: fmt.Sprintf(constants.DocumentTitle, selectedRss.Title),
+		Body:  template.HTML(selectedRss.Content),
 	})
 }
 

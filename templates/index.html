@@ -22,8 +22,7 @@
             <div class="row">
                 {{range .Rss.Items}}
                     <div class="{{.ClassName}} col-12">
-                        <div class="content-item" style="background-image: url({{.Thumbnail}})"
-                             onclick="window.open({{.Link}}, '_blank')">
+                        <div class="content-item" style="background-image: url({{.Thumbnail}})" onclick="window.location = {{.Link}}">
                             <div id="{{.Id}}">
                                 <h3>{{.Title}}</h3>
                             </div>

@@ -1,14 +1,15 @@
 package models
 
+import "html/template"
+
 type IndexDocument struct {
 	Title string `json:"title"`
 	Rss   RssDto `json:"rss"`
 }
 
 type PostDocument struct {
-	Title        string  `json:"title"`
-	Description  string  `json:"description"`
-	SelectedItem ItemDto `json:"selectedItem"`
+	Title string        `json:"title"`
+	Body  template.HTML `json:"body"`
 }
 
 type AboutDocument struct {

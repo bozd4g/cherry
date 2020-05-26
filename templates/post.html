@@ -1,9 +1,13 @@
-{{define "links"}}{{end}}
+{{define "links"}}
+    <link rel="stylesheet" type="text/css" href="/static/style/post.css">
+{{end}}
 
 {{define "content"}}
-    <div>
-        Hello from post.html
+    <div class="d-flex justify-content-center">
+        <div class="container">{{.Body}}</div>
     </div>
 {{end}}
 
-{{define "scripts"}}{{end}}
+{{define "scripts"}}
+    <script name="js" src="/static/js/post.js"></script>
+{{end}}
