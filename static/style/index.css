@@ -2,15 +2,13 @@
 
 
 .introduction {
-    padding: 0 10rem;
-    height: 80vh;
-    display: flex;
-    align-items: center;
+    height: calc(100% - 6rem);
+    color: var(--color-font);
+    font-family: var(--font-family-primary) !important;
 }
 
 .introduction .introduction-image {
-    height: 70vh;
-    width: 60rem;
+    height: 600px;
     z-index: -3;
     overflow: hidden;
     border-radius: 20px;
@@ -25,12 +23,11 @@
 
 .introduction .introduction-content {
     color: var(--color-font);
-    font-family: var(--font-family-primary) !important;
-    margin-left: 5rem;
-    margin-top: -5rem;
+    margin-top: -10rem;
 }
 
 .introduction .introduction-content h2 {
+    margin-left: 3rem;
     line-height: 3rem;
     font-size: 2.5rem;
 }
@@ -48,12 +45,31 @@
     margin-top: 1rem;
 }
 
+.content {
+    color: var(--color-font);
+    width: calc(100% + 10rem);
+    margin-top: calc(-10rem - 40px);
+    margin-left: -5rem;
+    position: relative;
+    z-index: 9;
+}
+
+.content .content-item {
+    background: red;
+    padding: 2rem;
+    border-radius: 20px;
+    margin: 10px 0;
+    height: 250px;
+}
+
 @media (max-width: 1200px) {
-    .introduction .introduction-image {
-        display: none;
+    .introduction .introduction-content h2 {
+        margin-left: unset;
+        font-size: 1.8rem;
     }
 
-    .introduction .introduction-content {
-        margin-left: unset;
+    .content {
+        width: 100%;
+        margin-left: 0;
     }
 }

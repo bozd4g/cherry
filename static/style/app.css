@@ -43,5 +43,12 @@ body {
 
 .navbar {
     font-family: var(--font-family-primary);
-    padding: 2rem 10rem !important
+    padding: 2rem 0 !important
+}
+
+
+@media (max-width: 1200px) {
+    .navbar {
+        padding: 2rem 0 !important
+    }
 }

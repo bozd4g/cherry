@@ -22,6 +22,7 @@ func NewRouter() *mux.Router {
 	r.HandleFunc("/", indexHandler)
 	r.HandleFunc("/p/{title}/{id}", postHandler)
 	r.HandleFunc("/about", aboutHandler)
+	r.HandleFunc("/contact", aboutHandler)
 
 	r.NotFoundHandler = http.HandlerFunc(notFoundHandler)
 
@@ -50,6 +51,12 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	utils.ExecuteTemplate(w, "about.html", models.AboutDocument{
 		Title: fmt.Sprintf(constants.DocumentTitle, "About"),
+	})
+}
+
+func contactHandler(w http.ResponseWriter, r *http.Request) {
+	utils.ExecuteTemplate(w, "contact.html", models.AboutDocument{
+		Title: fmt.Sprintf(constants.DocumentTitle, "Contact"),
 	})
 }
 

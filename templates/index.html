@@ -1,29 +1,40 @@
 {{define "links"}}
-<link rel="stylesheet" type="text/css" href="/static/style/index.css">
+    <link rel="stylesheet" type="text/css" href="/static/style/index.css">
 {{end}}
 
 {{define "content"}}
-<div>
-    <div class="introduction">
-        <div class="introduction-image"></div>
-        <div class="introduction-content">
-            <h2>Hello 👋</h2>
-            <h2>This is <b>Furkan Bozdağ</b>. I am a Software Engineer at
-                <a class="trendyol" href="https://trendyol.com" target="_blank">Trendyol Group</a>
-                who loves solving the problems.
-            </h2>
-
-            <h4>I want to tell you something; eat the frog 🐸</h4>
+    <div class="container">
+        <div class="d-flex align-items-center introduction">
+            <div class="row align-items-center">
+                <div class="col-md-5 d-none d-lg-block d-md-none">
+                    <div class="introduction-image"></div>
+                </div>
+                <div class="col-md-7 col-12 col-offset-2 introduction-content">
+                    <h2>Hello 👋</h2>
+                    <h2>This is <b>Furkan Bozdağ</b>. I am a Software Engineer at
+                        <a class="trendyol" href="https://trendyol.com" target="_blank">Trendyol Group</a>
+                        who loves solving the problems.
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                {{range $index, $element := .Rss.Items}}
+                    {{if $index}}
+                        <div class="col-md-4 col-12">
+                            <div class="content-item">asd</div>
+                        </div>
+                        <div class="col-md-8 col-12">
+                            <div class="content-item">qwe</div>
+                        </div>
+                    {{end}}
+                {{end}}
+            </div>
         </div>
     </div>
-</div>
 {{end}}
 
 {{define "scripts"}}
-    <script>
-        $(document).ready(function () {
-            console.log({{.Rss}})
-        })
-    </script>
-<script name="js" src="/static/js/index.js"></script>
+    <script name="js" src="/static/js/index.js"></script>
 {{end}}

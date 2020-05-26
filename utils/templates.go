@@ -10,14 +10,23 @@ import (
 var templates = make(map[string]*template.Template)
 
 func LoadTemplates() {
-	allTemplates, _ := template.ParseGlob("templates/*.html")
+	allTemplates, err := template.ParseGlob("templates/*.html")
+	layoutTemplate := "templates/layout/_base.html"
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	for _, item := range allTemplates.Templates() {
 		isMatch, _ := regexp.MatchString("([a-zA-Z0-9\\s_\\\\.\\-():])+(.html)$", item.Name())
 		if !isMatch {
 			continue
 		}
 
-		templates[item.Name()] = template.Must(template.ParseFiles("templates/layout/_base.html", "templates/" + item.Name()))
+		templates[item.Name()], err = template.ParseFiles(layoutTemplate, "templates/" + item.Name())
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }
 
