@@ -43,14 +43,13 @@
     color: var(--color-font);
     width: calc(100% + 10rem);
     margin-left: -5rem;
-    position: relative;
     z-index: 9;
 }
 
 .content .content-item {
     cursor: pointer;
-    position: relative;
     user-select: none;
+    color: white;
 }
 
 .content .content-item img {
