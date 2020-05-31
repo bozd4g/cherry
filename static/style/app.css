@@ -40,10 +40,36 @@
 body {
     background-color: var(--color-body) !important;
     font-family: var(--font-family-primary) !important;
+    margin-bottom: 5rem !important;
 }
 
 .navbar {
     padding: 2rem 0 !important
+}
+
+.love-opensource {
+    position: fixed;
+    bottom: 0;
+    background-color: var(--yellow);
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.love-opensource a {
+    text-decoration: unset;
+    color: var(--dark);
+    text-decoration: none;
+}
+
+.love-opensource a:hover {
+    text-decoration: none;
+    color: var(--dark);
+}
+
+.love-opensource a span {
+    margin: 0 5px;
 }
 
 
