@@ -1,3 +1,59 @@
-.container {
+.post-content {
     color: white;
+    word-break: break-word;
+    margin-bottom: 10rem;
+}
+
+.post-content h3 {
+    font-size: 3rem;
+    line-height: 3rem;
+    margin: 3rem 0;
+    font-weight: bold;
+}
+
+.post-content h4 {
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+    font-weight: bold;
+    margin: 2rem 0;
+}
+
+.post-content a,
+.post-content p {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.post-content a {
+    color: var(--yellow);
+    text-decoration: underline;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.post-content figure {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    object-fit: contain;
+    margin: 3rem 0;
+}
+
+.post-content figure img {
+    margin-bottom: 5px;
+    max-height: 500px;
+    max-width: 100vw;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.post-content figure figcaption,
+.post-content figure figcaption a{
+    font-size: .8rem;
+    color: rgba(255, 255, 255, .5);
+}
+
+.post-content hr {
+    border-top-color: rgba(255, 255, 255, .1);
 }
