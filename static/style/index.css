@@ -25,6 +25,11 @@
     margin-left: 3rem;
     line-height: 3rem;
     font-size: 2.5rem;
+    color: rgba(255, 255, 255, .8);
+}
+
+.introduction .introduction-content h2 b {
+    color: white;
 }
 
 .introduction .introduction-content h2 .trendyol {
