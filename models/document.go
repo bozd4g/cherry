@@ -1,10 +1,13 @@
 package models
 
-import "html/template"
+import (
+	"github.com/bozd4g/cherry/proxy/mediumProxy/mediumProxyDtos"
+	"html/template"
+)
 
 type IndexDocument struct {
-	Title string `json:"title"`
-	Rss   RssDto `json:"rss"`
+	Title string                 `json:"title"`
+	Rss   mediumProxyDtos.RssDto `json:"rss"`
 }
 
 type PostDocument struct {

@@ -2,9 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/bozd4g/cherry/routes"
+	"github.com/bozd4g/cherry/controlers"
 	"github.com/bozd4g/cherry/utils"
-	"github.com/gorilla/handlers"
 	"log"
 	"net/http"
 	"os"
@@ -12,18 +11,17 @@ import (
 
 func main() {
 	utils.LoadTemplates()
-	r := routes.NewRouter()
+	r := controlers.New()
 
-	origins := handlers.AllowedOrigins([]string{"*"})
-	headers := handlers.AllowedHeaders([]string{"X-Requested-With"})
-	methods := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
+	r.InitRoutes()
+	middlewares := r.InitMiddlewares()
 
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
 
-	err := http.ListenAndServe(fmt.Sprintf(":%s", port), handlers.CORS(origins, headers, methods)(r))
+	err := http.ListenAndServe(fmt.Sprintf(":%s", port), middlewares)
 
 	if err != nil {
 		log.Fatal(err)

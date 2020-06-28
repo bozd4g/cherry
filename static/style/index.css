@@ -1,5 +1,6 @@
 .introduction {
-    height: calc(100% - 6rem);
+    height: calc(100vh - 7.5rem);
+    display: flex;
     color: var(--color-font);
 }
 
