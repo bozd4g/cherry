@@ -42,7 +42,7 @@ func (m *mediumService) GetRss() mediumProxyDtos.RssDto {
 		}
 
 		var colNumber = 4
-		var rgx = regexp.MustCompile(`(http[s]?:\/\/)?([^\/\s]+\/)(.*)`)
+		var rgx = regexp.MustCompile(constants.UrlRegex)
 
 		for i := 0; i < len(rssDto.Items); i++ {
 			itemDto := &rssDto.Items[i]

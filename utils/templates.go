@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"github.com/bozd4g/cherry/constants"
 	"html/template"
 	"log"
 	"net/http"
@@ -18,7 +19,7 @@ func LoadTemplates() {
 	}
 
 	for _, item := range allTemplates.Templates() {
-		isMatch, _ := regexp.MatchString("([a-zA-Z0-9\\s_\\\\.\\-():])+(.html)$", item.Name())
+		isMatch, _ := regexp.MatchString(constants.HtmlRegex, item.Name())
 		if !isMatch {
 			continue
 		}
