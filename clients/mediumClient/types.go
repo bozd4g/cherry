@@ -1,4 +1,4 @@
-package mediumProxyDtos
+package mediumClient
 
 type RssDto struct {
 	Status string    `json:"status"`

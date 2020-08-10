@@ -1,38 +1,40 @@
-package mediumProxy
+package mediumClient
 
 import (
 	"encoding/json"
 	"errors"
-	"github.com/bozd4g/cherry/models"
 	client "github.com/bozd4g/go-http-client"
 	"log"
 	"os"
 )
 
-type mediumProxy struct {
+type mediumClient struct {
 	client client.IHttpClient
 }
 
-type IMediumProxy interface {
-	GetRss() (*models.Rss, error)
+type IMediumClient interface {
+	GetRss() (*RssDto, error)
 }
 
-func New() IMediumProxy {
+func New() IMediumClient {
 	apiBaseUrl := os.Getenv("API_BASE_URL")
 
 	httpClient := client.New(apiBaseUrl)
-	return &mediumProxy{client: httpClient}
+	return &mediumClient{client: httpClient}
 }
 
-func (m *mediumProxy) GetRss() (*models.Rss, error) {
+func (m *mediumClient) GetRss() (*RssDto, error) {
 	apiGetMethod := os.Getenv("API_GET_METHOD")
+	if apiGetMethod == "" {
+		return nil, errors.New("API_GET_METHOD cannot be empty")
+	}
 
 	request, err := m.client.Get(apiGetMethod)
 	if err != nil {
 		log.Println("Error: " + err.Error())
 	}
 
-	var rss *models.Rss
+	var rss *RssDto
 	response := m.client.Do(request)
 	if response.IsSuccess {
 		err = json.Unmarshal([]byte(response.Data), &rss)

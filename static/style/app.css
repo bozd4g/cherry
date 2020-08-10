@@ -40,11 +40,17 @@
 body {
     background-color: var(--color-body) !important;
     font-family: var(--font-family-primary) !important;
-    margin-bottom: 5rem !important;
 }
 
 .navbar {
     padding: 2rem 0 !important
+}
+
+.navbar .navbar-brand {
+    font-family: var(--font-family-primary);
+    font-weight: 600;
+    font-size: 3rem;
+    letter-spacing: 2px;
 }
 
 .love-opensource {

@@ -2,30 +2,24 @@ package main
 
 import (
 	"fmt"
-	"github.com/bozd4g/cherry/controlers"
-	"github.com/bozd4g/cherry/utils"
-	"log"
-	"net/http"
+	"github.com/bozd4g/cherry/controllers"
 	"os"
 )
 
 func main() {
-	utils.LoadTemplates()
-	r := controlers.New()
+	r := controllers.New()
 
 	r.InitRoutes()
-	middlewares := r.InitMiddlewares()
+	r.InitMiddlewares()
+	r.InitTemplates()
 
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
 
-	err := http.ListenAndServe(fmt.Sprintf(":%s", port), middlewares)
-
+	err := r.Get().Run(fmt.Sprintf(":%s", port))
 	if err != nil {
-		log.Fatal(err)
-	} else {
-		fmt.Println(fmt.Sprintf("Listening on localhost:%s", port))
+		panic(err)
 	}
 }

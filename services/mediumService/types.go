@@ -1,4 +1,4 @@
-package models
+package mediumService
 
 type Rss struct {
 	Status string `json:"status"`

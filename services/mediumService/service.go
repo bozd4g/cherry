@@ -3,9 +3,8 @@ package mediumService
 import (
 	"fmt"
 	"github.com/bozd4g/cherry/caching"
+	"github.com/bozd4g/cherry/clients/mediumClient"
 	"github.com/bozd4g/cherry/constants"
-	"github.com/bozd4g/cherry/proxy/mediumProxy"
-	"github.com/bozd4g/cherry/proxy/mediumProxy/mediumProxyDtos"
 	"github.com/mitchellh/mapstructure"
 	"log"
 	"regexp"
@@ -17,19 +16,19 @@ type mediumService struct {
 }
 
 type IMediumService interface {
-	GetRss() mediumProxyDtos.RssDto
+	GetRss() mediumClient.RssDto
 }
 
 func New(memoryCache caching.IMemoryCache) IMediumService {
 	return &mediumService{MemoryCache: memoryCache}
 }
 
-func (m *mediumService) GetRss() mediumProxyDtos.RssDto {
-	var rssDto mediumProxyDtos.RssDto
+func (m *mediumService) GetRss() mediumClient.RssDto {
+	var rssDto mediumClient.RssDto
 
 	if cache, isExist := m.MemoryCache.Get(constants.RssDataKey); !isExist || cache == nil {
-		proxy := mediumProxy.New()
-		rss, err := proxy.GetRss()
+		mediumClient := mediumClient.New()
+		rss, err := mediumClient.GetRss()
 		if rss == nil || err != nil {
 			log.Fatal("An error occured while retrieving to rss!")
 			return rssDto
