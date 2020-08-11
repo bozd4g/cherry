@@ -19,6 +19,7 @@
 
 .introduction .introduction-content {
     color: #fff;
+    margin-top: -5rem;
 }
 
 .introduction .introduction-content h2 {
@@ -49,6 +50,7 @@
     color: var(--color-font);
     width: calc(100% + 10rem);
     margin-left: -5rem;
+    margin-bottom: 5rem;
     z-index: 9;
 }
 
