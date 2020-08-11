@@ -75,3 +75,17 @@
     counter-reset: initial;
     margin-left: 1.2rem;
 }
+
+@media (max-width: 1200px) {
+    .post-content figure figcaption,
+    .post-content figure figcaption a {
+        max-width: 100%;
+    }
+
+    .post-content blockquote,
+    .post-content q {
+        margin: 1rem 2rem !important;
+        font-size: 1.6rem;
+        line-height: 2rem;
+    }
+}

@@ -27,7 +27,7 @@ func New() IRouter {
 	engine.Static("static", "./static")
 
 	engine.NoRoute(func(context *gin.Context) {
-		context.Data(http.StatusNotFound, "text/plain", []byte("404 - Not found!"))
+		context.HTML(http.StatusOK, "/404", nil)
 	})
 
 	return &Router{Engine: engine}

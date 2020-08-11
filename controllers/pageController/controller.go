@@ -56,13 +56,13 @@ func (controller *pageController) postHandler(c *gin.Context) {
 }
 
 func (controller *pageController) aboutHandler(c *gin.Context) {
-	//utils.ExecuteTemplate(c, "about.html", models.AboutDocument{
-	//	Title: fmt.Sprintf(constants.DocumentTitle, "About"),
-	//})
+	c.HTML(http.StatusOK, "/about", models.AboutDocument{
+		Title: fmt.Sprintf(constants.DocumentTitle, "About"),
+	})
 }
 
 func (controller *pageController) contactHandler(c *gin.Context) {
-	//utils.ExecuteTemplate(c, "contact.html", models.ContactDocument{
-	//	Title: fmt.Sprintf(constants.DocumentTitle, "Contact"),
-	//})
+	c.HTML(http.StatusOK, "/contact", models.ContactDocument{
+		Title: fmt.Sprintf(constants.DocumentTitle, "Contact"),
+	})
 }
