@@ -1,30 +1,50 @@
 package mediumClient
 
+import "encoding/xml"
+
 type RssDto struct {
-	Status string    `json:"status"`
-	Feed   FeedDto   `json:"feed"`
-	Items  []ItemDto `json:"items"`
+	XMLName xml.Name `xml:"rss"`
+	Text    string   `xml:",chardata"`
+	Dc      string   `xml:"dc,attr"`
+	Content string   `xml:"content,attr"`
+	Atom    string   `xml:"atom,attr"`
+	Version string   `xml:"version,attr"`
+	Cc      string   `xml:"cc,attr"`
+	Channel struct {
+		Text        string `xml:",chardata"`
+		Title       string `xml:"title"`
+		Description string `xml:"description"`
+		Link        struct {
+			Text string `xml:",chardata"`
+			Href string `xml:"href,attr"`
+			Rel  string `xml:"rel,attr"`
+			Type string `xml:"type,attr"`
+		} `xml:"link"`
+		Image struct {
+			Text  string `xml:",chardata"`
+			URL   string `xml:"url"`
+			Title string `xml:"title"`
+			Link  string `xml:"link"`
+		} `xml:"image"`
+		Generator     string       `xml:"generator"`
+		LastBuildDate string       `xml:"lastBuildDate"`
+		WebMaster     string       `xml:"webMaster"`
+		Item          []RssItemDto `xml:"item"`
+	} `xml:"channel"`
 }
 
-type FeedDto struct {
-	URL         string `json:"url"`
-	Title       string `json:"title"`
-	Link        string `json:"link"`
-	Author      string `json:"author"`
-	Description string `json:"description"`
-	Image       string `json:"image"`
-}
-
-type ItemDto struct {
-	Id          string   `json:"id"`
-	DetailLink  string   `json:"detailLink"`
-	Title       string   `json:"title"`
-	PubDate     string   `json:"pubDate"`
-	Link        string   `json:"link"`
-	Guid        string   `json:"guid"`
-	Thumbnail   string   `json:"thumbnail"`
-	Description string   `json:"description"`
-	Content     string   `json:"content"`
-	Categories  []string `json:"categories"`
-	ClassName   string   `json:"className"`
+type RssItemDto struct {
+	Text  string `xml:",chardata"`
+	Title string `xml:"title"`
+	Link  string `xml:"link"`
+	Guid  struct {
+		Text        string `xml:",chardata"`
+		IsPermaLink string `xml:"isPermaLink,attr"`
+	} `xml:"guid"`
+	Category  []string `xml:"category"`
+	Creator   string   `xml:"creator"`
+	PubDate   string   `xml:"pubDate"`
+	Updated   string   `xml:"updated"`
+	Encoded   string   `xml:"encoded"`
+	Thumbnail string   `json:"thumbnail"`
 }

@@ -3,7 +3,6 @@ package pageController
 import (
 	"fmt"
 	"github.com/bozd4g/cherry/caching"
-	"github.com/bozd4g/cherry/clients/mediumClient"
 	"github.com/bozd4g/cherry/constants"
 	"github.com/bozd4g/cherry/models"
 	"github.com/bozd4g/cherry/services/mediumService"
@@ -36,22 +35,22 @@ func (controller *pageController) Init() {
 func (controller *pageController) indexHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "/index", models.IndexDocument{
 		Title: fmt.Sprintf(constants.DocumentTitle, "Home"),
-		Rss:   controller.MediumService.GetRss(),
+		Posts: controller.MediumService.GetPosts(),
 	})
 }
 
 func (controller *pageController) postHandler(c *gin.Context) {
-	rss := controller.MediumService.GetRss()
-	var selectedRss mediumClient.ItemDto
-	for _, v := range rss.Items {
-		if v.Id == fmt.Sprintf("p/%s", c.Param("id")) {
-			selectedRss = v
+	posts := controller.MediumService.GetPosts()
+	var selectedPost mediumService.PostDto
+	for _, v := range posts {
+		if v.Id == c.Param("id") {
+			selectedPost = v
 		}
 	}
 
 	c.HTML(http.StatusOK, "/post", models.PostDocument{
-		Title: fmt.Sprintf(constants.DocumentTitle, selectedRss.Title),
-		Body:  template.HTML(selectedRss.Content),
+		Title: fmt.Sprintf(constants.DocumentTitle, selectedPost.Title),
+		Body:  template.HTML(selectedPost.Content),
 	})
 }
 

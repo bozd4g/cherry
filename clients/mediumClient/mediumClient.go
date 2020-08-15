@@ -1,7 +1,7 @@
 package mediumClient
 
 import (
-	"encoding/json"
+	"encoding/xml"
 	"errors"
 	client "github.com/bozd4g/go-http-client"
 	"log"
@@ -37,7 +37,7 @@ func (m *mediumClient) GetRss() (*RssDto, error) {
 	var rss *RssDto
 	response := m.client.Do(request)
 	if response.IsSuccess {
-		err = json.Unmarshal([]byte(response.Data), &rss)
+		err = xml.Unmarshal([]byte(response.Data), &rss)
 	} else {
 		err = errors.New(response.Message)
 		log.Println("Error: " + response.Message)

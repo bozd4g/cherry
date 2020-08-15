@@ -1,9 +1,7 @@
 package mediumController
 
 import (
-	"encoding/json"
 	"github.com/bozd4g/cherry/caching"
-	"github.com/bozd4g/cherry/clients/mediumClient"
 	"github.com/bozd4g/cherry/services/mediumService"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -28,20 +26,6 @@ func (controller *mediumController) Init() {
 }
 
 func (controller *mediumController) feedHandler(c *gin.Context) {
-	rss := controller.MediumService.GetRss()
-	response, err := json.Marshal(rss)
-	if err != nil {
-		emptyResponse, _ := json.Marshal(mediumClient.RssDto{
-			Status: "",
-			Feed:   mediumClient.FeedDto{},
-			Items:  []mediumClient.ItemDto{},
-		})
-		response = emptyResponse
-	}
-	if err != nil {
-		c.AbortWithStatusJSON(500, gin.H{"error": "An error occured while retrieving the feed from medium.com"})
-		return
-	}
-
-	c.JSON(http.StatusOK, response)
+	posts := controller.MediumService.GetPosts()
+	c.JSON(http.StatusOK, posts)
 }

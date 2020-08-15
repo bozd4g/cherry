@@ -17,7 +17,7 @@
         </div>
         <div class="content">
             <div class="row">
-                {{range .Rss.Items}}
+                {{range .Posts}}
                     <div class="{{.ClassName}} col-12">
                         <a id="{{.Id}}" class="content-item" href="{{.Link}}">
                             <img class="lazy" src="{{.Thumbnail}}" alt="{{.Title}}"/>

@@ -1,13 +1,13 @@
 package models
 
 import (
-	"github.com/bozd4g/cherry/clients/mediumClient"
+	"github.com/bozd4g/cherry/services/mediumService"
 	"html/template"
 )
 
 type IndexDocument struct {
-	Title string              `json:"title"`
-	Rss   mediumClient.RssDto `json:"rss"`
+	Title string                  `json:"title"`
+	Posts []mediumService.PostDto `json:"posts"`
 }
 
 type PostDocument struct {

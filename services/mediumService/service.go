@@ -7,8 +7,6 @@ import (
 	"github.com/bozd4g/cherry/constants"
 	"github.com/mitchellh/mapstructure"
 	"log"
-	"regexp"
-	"strings"
 )
 
 type mediumService struct {
@@ -16,47 +14,29 @@ type mediumService struct {
 }
 
 type IMediumService interface {
-	GetRss() mediumClient.RssDto
+	GetPosts() []PostDto
 }
 
 func New(memoryCache caching.IMemoryCache) IMediumService {
 	return &mediumService{MemoryCache: memoryCache}
 }
 
-func (m *mediumService) GetRss() mediumClient.RssDto {
-	var rssDto mediumClient.RssDto
-
-	if cache, isExist := m.MemoryCache.Get(constants.RssDataKey); !isExist || cache == nil {
+func (m *mediumService) GetPosts() []PostDto {
+	var postsDto []PostDto
+	if cache, isExist := m.MemoryCache.Get(constants.PostsCacheKey); !isExist || cache == nil {
 		mediumClient := mediumClient.New()
-		rss, err := mediumClient.GetRss()
-		if rss == nil || err != nil {
+		rssDto, err := mediumClient.GetRss()
+		if rssDto == nil || err != nil {
 			log.Fatal("An error occured while retrieving to rss!")
-			return rssDto
-		}
-
-		err = mapstructure.Decode(rss, &rssDto)
-		if err != nil {
-			log.Fatal("An error occured while decoding to rssDto!")
-			return rssDto
+			return postsDto
 		}
 
 		var colNumber = 4
-		var rgx = regexp.MustCompile(constants.UrlRegex)
 
-		for i := 0; i < len(rssDto.Items); i++ {
-			itemDto := &rssDto.Items[i]
-			if len(itemDto.Categories) == 0 {
-				rssDto.Items = append(rssDto.Items[:i], rssDto.Items[i+1:]...)
-				i--
+		for i, v := range rssDto.Channel.Item {
+			if len(v.Category) == 0 {
 				continue
 			}
-
-			guidMatches := rgx.FindAllStringSubmatch(itemDto.Guid, -1)
-			linkMatches := rgx.FindAllStringSubmatch(itemDto.Link, -1)
-
-			itemDto.Id = guidMatches[0][3]
-			itemDto.Link = fmt.Sprintf("%s/%s", guidMatches[0][3], strings.Replace(linkMatches[0][3], "/", "-", 10))
-			itemDto.ClassName = fmt.Sprintf("col-md-%d", colNumber)
 
 			if i == 0 {
 				colNumber = 8
@@ -65,17 +45,22 @@ func (m *mediumService) GetRss() mediumClient.RssDto {
 			} else {
 				colNumber = 4
 			}
+
+			post := PostDto{}.Create(v)
+			post.ClassName = fmt.Sprintf("col-md-%d", colNumber)
+
+			postsDto = append(postsDto, post)
 		}
 
-		m.MemoryCache.Set(constants.RssDataKey, rssDto)
+		m.MemoryCache.Set(constants.PostsCacheKey, postsDto)
 	} else {
-		err := mapstructure.Decode(cache, &rssDto)
+		err := mapstructure.Decode(cache, &postsDto)
 		if err != nil {
-			log.Fatal("An error occured while decoding data to rssDto!")
+			log.Fatal("An error occured while decoding data to postDto!")
 		}
 
 		log.Println("Data came from cache")
 	}
 
-	return rssDto
+	return postsDto
 }
