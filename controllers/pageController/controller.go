@@ -2,13 +2,14 @@ package pageController
 
 import (
 	"fmt"
+	"html/template"
+	"net/http"
+
 	"github.com/bozd4g/cherry/caching"
 	"github.com/bozd4g/cherry/constants"
 	"github.com/bozd4g/cherry/models"
 	"github.com/bozd4g/cherry/services/mediumService"
 	"github.com/gin-gonic/gin"
-	"html/template"
-	"net/http"
 )
 
 type pageController struct {
