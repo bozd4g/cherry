@@ -1,8 +1,9 @@
 package models
 
 import (
-	"github.com/bozd4g/cherry/services/mediumService"
 	"html/template"
+
+	"github.com/bozd4g/cherry/services/mediumService"
 )
 
 type IndexDocument struct {
