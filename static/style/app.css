@@ -54,7 +54,7 @@ body {
 }
 
 .love-opensource {
-    position: fixed;
+    position: relative;
     bottom: 0;
     background-color: var(--yellow);
     padding: 15px;

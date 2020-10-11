@@ -12,6 +12,7 @@ type memoryCache struct {
 type IMemoryCache interface {
 	Get(key string) (interface{}, bool)
 	Set(key string, data interface{})
+	Flush()
 }
 
 func New() IMemoryCache {
@@ -29,4 +30,8 @@ func (c *memoryCache) Get(key string) (interface{}, bool) {
 
 func (c *memoryCache) Set(key string, data interface{}) {
 	c.Cache.Set(key, data, time.Hour*12)
+}
+
+func (c *memoryCache) Flush() {
+	c.Cache.Flush()
 }

@@ -15,6 +15,7 @@ type mediumService struct {
 
 type IMediumService interface {
 	GetPosts() []PostDto
+	ClearCache()
 }
 
 func New(memoryCache caching.IMemoryCache) IMediumService {
@@ -63,4 +64,8 @@ func (m *mediumService) GetPosts() []PostDto {
 	}
 
 	return postsDto
+}
+
+func (m *mediumService) ClearCache() {
+	m.MemoryCache.Flush()
 }

@@ -23,9 +23,16 @@ func New(engine *gin.Engine, memoryCache caching.IMemoryCache) IMediumController
 
 func (controller *mediumController) Init() {
 	controller.Engine.GET("/api/medium/feed", controller.feedHandler)
+	controller.Engine.GET("/api/medium/flush", controller.flush)
 }
 
 func (controller *mediumController) feedHandler(c *gin.Context) {
 	posts := controller.MediumService.GetPosts()
 	c.JSON(http.StatusOK, posts)
 }
+
+func (controller *mediumController) flush(c *gin.Context) {
+	controller.MediumService.ClearCache()
+	c.JSON(http.StatusOK, gin.H{"status": "ok"})
+}
+
